@@ -9,6 +9,7 @@ if($grab == null) { $grab = "100"; }
 //Parsing Cookies
 $file     = "cookies.txt";
 $contents = file_get_contents($file);
+if($contents == null) { echo "cookies.txt file is blank"; die(); }
 $lines    = explode("\n", $contents);
 foreach ($lines as $word) {
     $word      = str_replace("\n", "", $word);
