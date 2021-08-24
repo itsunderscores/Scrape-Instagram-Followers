@@ -45,10 +45,10 @@ $grab_userid2 = explode('"' , $grab_userid[1] );
 $user_id = $grab_userid2[0];
 
 if($rt == null) {
-    echo "Getting follower request was blank"; exit();
+    echo "Getting follower request was blank, check your account/cookies"; exit();
 } else {
     if($followers1 == null) {
-        echo "Follower value is null"; exit();
+        echo "Follower value is null, check your account/cookies!"; exit();
     }
 }
 
@@ -106,7 +106,7 @@ for ($x = 1; $x <= $followers; $x++) {
         $grab_json   = json_decode($rt, true);
         $next_max_id = $grab_json['next_max_id'];
         if($next_max_id == null) {
-            echo "Something went wrong grabbing next_max_id, most likely limited/locked... Stopping script<br>"; exit();
+            echo "Something went wrong grabbing next_max_id, most likely limited/locked... Delaying 120 seconds, check your account!<br>"; sleep(120);
         } else {
         file_put_contents('next_id.txt', $next_max_id);
     }
