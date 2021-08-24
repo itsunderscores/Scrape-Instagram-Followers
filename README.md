@@ -7,6 +7,8 @@ Scrapes Instagram Followers from Username. Works flawlessly.
 * Puts followers into list
 * Select how many accounts to grab per request
 
+Automatically obtains follower amount to parse the follower list appropriately. 
+
 Upload your Instagram cookies to file ```cookies.txt```
 
 Usage: ```scrape.php?username=statemnd&delay=3&grab=100```
