@@ -61,6 +61,7 @@ if($followers1 <= 12) {
     $followers = $followers1 / $grab;
 }
 
+echo "File will be saved: <a target='_blank' href='$file.txt'>$file</a>";
 for ($x = 1; $x <= $followers; $x++) {
     
     echo "Request: $x / $followers<br>";
