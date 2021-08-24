@@ -12,7 +12,7 @@ Automatically obtains follower amount to parse the follower list appropriately.
 
 Upload your Instagram cookies to file ```cookies.txt``` (Sign in, go to a users profile, Inspect Element, and copy your cookies) (Look at cookies.txt for example)
 
-Usage: ```scrape.php?username=statemnd&delay=3&grab=100```
+Usage: ```scrape.php?username=statemnd&delay=3&grab=50```
 
 Delay = How long to wait per scraping next list (I usually have it set to 3 seconds to prevent limitation)
 
