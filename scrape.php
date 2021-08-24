@@ -5,6 +5,7 @@ if ($username == null) {
     echo 'enter a username';
     die();
 }
+if($delay == null) { $delay = "3"; }
 
 //Parsing Cookies
 $file     = "cookies.txt";
