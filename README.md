@@ -10,7 +10,7 @@ Scrapes Instagram Followers from Username. Works flawlessly.
 
 Automatically obtains follower amount to parse the follower list appropriately. 
 
-Upload your Instagram cookies to file ```cookies.txt```
+Upload your Instagram cookies to file ```cookies.txt``` (look at cookies.txt for example)
 
 Usage: ```scrape.php?username=statemnd&delay=3&grab=100```
 
