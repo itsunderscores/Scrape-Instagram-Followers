@@ -6,6 +6,7 @@ Scrapes Instagram Followers from Username. Works flawlessly.
 * Grabs UserID
 * Puts followers into list
 * Select how many accounts to grab per request
+* Saves follower list to file
 
 Automatically obtains follower amount to parse the follower list appropriately. 
 
