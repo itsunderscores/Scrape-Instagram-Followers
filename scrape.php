@@ -15,6 +15,9 @@ foreach ($lines as $word) {
     $headers[] = $word;
 }
 
+//Log accounts to this file
+$file = "$username.txt";
+
 //Grab Account Data
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://www.instagram.com/'.$username.'/');
@@ -86,11 +89,26 @@ for ($x = 1; $x <= $followers; $x++) {
     foreach ($data->users as $entry) {
         $list_username = $entry->username;
         if ($list_username != null) {
-             "$list_username<br>";
+            "$list_username<br>";
+            
+            $f    = fopen($file, 'a');
+            fwrite($f, "$list_username\n");
+            fclose($f);
         }
     }
-    
-    $number++; $number++; $number++; $number++; $number++; $number++; $number++; $number++; $number++; $number++; $number++; $number++;
+
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
+    $number++;
     sleep($delay);
 } 
 }
