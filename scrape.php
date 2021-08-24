@@ -1,11 +1,10 @@
- <?php
-$username = $_GET['username'];
-$delay    = $_GET['delay'];
-if ($username == null) {
-    echo 'enter a username';
-    die();
-}
+<?php
+$username = $_GET['username']; //IG Username
+$delay    = $_GET['delay']; //Sleep per request
+$grab = $_GET['grab']; //How many accounts to grab per IG Request
+if ($username == null) { echo 'enter a username'; die(); }
 if($delay == null) { $delay = "3"; }
+if($grab == null) { $grab = "100"; }
 
 //Parsing Cookies
 $file     = "cookies.txt";
@@ -18,6 +17,10 @@ foreach ($lines as $word) {
 
 //Log accounts to this file
 $file = "$username.txt";
+unlink($file);
+unlink("next_id.txt");
+
+$f = fopen($file, 'a');
 
 //Grab Account Data
 $ch = curl_init();
@@ -30,11 +33,11 @@ $rt   = curl_exec($ch);
 $info = curl_getinfo($ch);
 curl_close($ch);
 
+
 //Grabbing Follower Amount
-$first_step = explode( '<meta content="' , $rt);
-$second_step = explode(' ' , $first_step[1] );
-$followers = $second_step[0];
-$followers = str_replace(",", "", $followers);
+$first_step = explode('"edge_followed_by":{"count":' , $rt);
+$second_step = explode('}' , $first_step[1] );
+$followers1 = $second_step[0];
 
 //Grabbing UserID
 $grab_userid = explode( 'logging_page_id":"profilePage_' , $rt);
@@ -44,21 +47,30 @@ $user_id = $grab_userid2[0];
 if($rt == null) {
     echo "Getting follower request was blank"; exit();
 } else {
-    if($followers == null) {
+    if($followers1 == null) {
         echo "Follower value is null"; exit();
     }
 }
 
+echo "UserID: $user_id - Followers: $followers1<br>";
+
 $number    = "12";
-$followers = $followers / 12;
+if($followers1 <= 12) {
+    $followers = 1;
+} else {
+    $followers = $followers1 / $grab;
+}
+
 for ($x = 1; $x <= $followers; $x++) {
+    
+    echo "Request: $x / $followers<br>";
     
     //Building Syntax
     $id = file_get_contents('next_id.txt');
     if ($number == "12") {
-        $syntax = "12";
+        $syntax = $grab;
     } else {
-        $syntax = "12&max_id=$id";
+        $syntax = "$grab&max_id=$id";
     }
     
 
@@ -77,25 +89,25 @@ for ($x = 1; $x <= $followers; $x++) {
         echo "Something went wrong grabbing the list...<br>";
     } else {
     
-    //Grabbing new ID for next list
-    $grab_json   = json_decode($rt, true);
-    $next_max_id = $grab_json['next_max_id'];
-    if($next_max_id == null) {
-        echo "Something went wrong grabbing next_max_id<br>";
-    } else {
-    file_put_contents('next_id.txt', $next_max_id);
-    
     $data   = json_decode($rt);
     $ipList = array();
     foreach ($data->users as $entry) {
         $list_username = $entry->username;
         if ($list_username != null) {
-            "$list_username<br>";
+            //echo "$list_username<br>";
             
-            $f    = fopen($file, 'a');
             fwrite($f, "$list_username\n");
-            fclose($f);
         }
+    }
+    
+    if($followers <= 12) { } else {
+        //Grabbing new ID for next list
+        $grab_json   = json_decode($rt, true);
+        $next_max_id = $grab_json['next_max_id'];
+        if($next_max_id == null) {
+            echo "Something went wrong grabbing next_max_id, most likely limited/locked... Stopping script<br>"; exit();
+        } else {
+        file_put_contents('next_id.txt', $next_max_id);
     }
 
     $number++;
@@ -114,3 +126,7 @@ for ($x = 1; $x <= $followers; $x++) {
 } 
 }
 }
+
+echo "Finished!";
+
+fclose($f);
