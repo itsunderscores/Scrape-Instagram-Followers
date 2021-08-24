@@ -1,0 +1,15 @@
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+X-IG-App-ID: 936
+X-ASBD-ID: 4
+X-IG-WWW-Claim: hmac.
+Origin: https://www.instagram.com
+Alt-Used: i.instagram.com
+Connection: keep-alive
+Referer: https://www.instagram.com/
+Cookie: 
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+TE: trailers
